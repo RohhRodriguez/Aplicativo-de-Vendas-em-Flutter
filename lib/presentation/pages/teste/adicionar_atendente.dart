@@ -87,17 +87,9 @@ class AdicionarAtendente2 extends StatelessWidget {
                     label: const Text('Salvar'),
                     style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue))),
                 Expanded(
-                    child: BlocProvider(
-                  create: (context) => atendenteListCubit..generateListAtendents(),
-                  child: BlocBuilder<AtendenteListCubit, AtendentListState>(
-                    builder: (context, state) {
-                      if (state is SuccessListAtendente) {
-                        return AtendentsList2(atendentList: state.atendentList);
-                      }
-                      return const Center(child: CircularProgressIndicator());
-                    },
-                  ),
-                ))
+                  child: BlocProvider(
+                      create: (context) => atendenteListCubit..generateListAtendents(), child: const AtendentsList2()),
+                )
               ],
             ),
           ),
