@@ -4,6 +4,7 @@ import 'package:projeto_desafio_flutter/domain/provider/clientes.dart';
 import 'package:projeto_desafio_flutter/domain/provider/produtos.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/teste/adicionar_atendente.dart';
 import 'package:provider/provider.dart';
+import 'application/cubit/cadastro_cubit/cadastro_atendente_cubit/atendent_list/atendente_list_cubit.dart';
 import 'application/cubit/cadastro_cubit/cadastro_teste/cadastro_cubit.dart';
 import 'application/cubit/reports/delivery_report/delivery_report_cubit.dart';
 import 'application/cubit/reports/sales_report/sales_report_cubit.dart';
@@ -37,8 +38,10 @@ class MyApp extends StatelessWidget {
           ),
           home: MultiBlocProvider(
             providers: [
-              BlocProvider<CadastroCubit>(
-                  create: (BuildContext context) => CadastroCubit(), child: AdicionarAtendente2()),
+              // BlocProvider<AtendenteListCubit>(
+              //   create: (BuildContext context) => AtendenteListCubit(),
+              //   // child: AdicionarAtendente2()
+              // ),
               BlocProvider<CadastroCubit>(
                 create: (BuildContext context) => CadastroCubit(),
               ),
