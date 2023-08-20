@@ -1,17 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projeto_desafio_flutter/domain/models/atendente.dart';
-import 'package:projeto_desafio_flutter/presentation/pages/teste/adicionar_atendente.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/teste/edit_atendente.dart';
 
 import '../../../application/cubit/cadastro_cubit/cadastro_atendente_cubit/atendent_list/atendente_list_cubit.dart';
 
-class AtendentsList2 extends StatelessWidget {
-  // final List<Atendente> atendentList;
-  const AtendentsList2({
+// lifecycle
+class AtendentsList extends StatefulWidget {
+  const AtendentsList({
     Key? key,
-    // required this.atendentList,
   }) : super(key: key);
+
+  @override
+  State<AtendentsList> createState() => _AtendentsListState();
+}
+
+class _AtendentsListState extends State<AtendentsList> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<AtendenteListCubit>().generateListAtendents();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +31,7 @@ class AtendentsList2 extends StatelessWidget {
               itemBuilder: (context, i) {
                 return ListTile(
                   subtitle: Text(
-                    '${state.atendentList[i].id}%',
+                    state.atendentList[i].id,
                     style: const TextStyle(fontSize: 14),
                   ),
                   title: Row(children: [
@@ -34,12 +42,13 @@ class AtendentsList2 extends StatelessWidget {
                     Text('${state.atendentList[i].comissao}%'),
                     const Spacer(flex: 1),
                     InkWell(
-                      onTap: () {
-                        Navigator.push(
+                      onTap: () async {
+                        await Navigator.push(
                           context,
                           MaterialPageRoute<void>(
                               builder: (BuildContext context) => AtendenteEdit(atendente: state.atendentList[i])),
                         );
+                        setState(() {});
                       },
                       child: Ink(
                           child: const Icon(
@@ -50,7 +59,7 @@ class AtendentsList2 extends StatelessWidget {
                     const Spacer(flex: 1),
                     InkWell(
                       onTap: () {
-                        atendenteListCubit.delete(state.atendentList[i]);
+                        context.read<AtendenteListCubit>().delete(state.atendentList[i]);
                       },
                       child: Ink(
                           child: const Icon(
@@ -62,7 +71,7 @@ class AtendentsList2 extends StatelessWidget {
                 );
               });
         }
-        return Center(child: CircularProgressIndicator());
+        return const Center(child: CircularProgressIndicator());
       },
     );
   }

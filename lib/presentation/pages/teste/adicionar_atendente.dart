@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:projeto_desafio_flutter/domain/models/atendente.dart';
 import 'package:projeto_desafio_flutter/infrastructure/data.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/teste/lista_atendentes.dart';
 import '../../../application/cubit/cadastro_cubit/cadastro_atendente_cubit/atendent_list/atendente_list_cubit.dart';
-
-final AtendenteListCubit atendenteListCubit = AtendenteListCubit();
+import '../../../domain/models/repository/atendentes_repository.dart';
 
 //valueObject
-class AdicionarAtendente2 extends StatelessWidget {
-  AdicionarAtendente2({Key? key}) : super(key: key);
+class AdicionarAtendente extends StatelessWidget {
+  final AtendenteListCubit atendenteListCubit = AtendenteListCubit(GetIt.instance<AtendenteRepository>());
+  AdicionarAtendente({Key? key}) : super(key: key);
   final GlobalKey<FormState> _formKey = GlobalKey();
   final Map<String, dynamic> _formData = {};
 
@@ -87,8 +88,8 @@ class AdicionarAtendente2 extends StatelessWidget {
                     label: const Text('Salvar'),
                     style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue))),
                 Expanded(
-                  child: BlocProvider(
-                      create: (context) => atendenteListCubit..generateListAtendents(), child: const AtendentsList2()),
+                  child: BlocProvider<AtendenteListCubit>(
+                      create: (context) => atendenteListCubit, child: const AtendentsList()),
                 )
               ],
             ),

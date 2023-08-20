@@ -1,21 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:projeto_desafio_flutter/domain/provider/clientes.dart';
 import 'package:projeto_desafio_flutter/domain/provider/produtos.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/teste/adicionar_atendente.dart';
 import 'package:provider/provider.dart';
-import 'application/cubit/cadastro_cubit/cadastro_atendente_cubit/atendent_list/atendente_list_cubit.dart';
 import 'application/cubit/cadastro_cubit/cadastro_teste/cadastro_cubit.dart';
 import 'application/cubit/reports/delivery_report/delivery_report_cubit.dart';
 import 'application/cubit/reports/sales_report/sales_report_cubit.dart';
+import 'domain/models/repository/atendentes_repository.dart';
 import 'domain/provider/pedidos.dart';
 
 void main() {
-  runApp(const MyApp());
+  GetIt.instance.registerLazySingleton(() => AtendenteRepository());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -38,10 +40,6 @@ class MyApp extends StatelessWidget {
           ),
           home: MultiBlocProvider(
             providers: [
-              // BlocProvider<AtendenteListCubit>(
-              //   create: (BuildContext context) => AtendenteListCubit(),
-              //   // child: AdicionarAtendente2()
-              // ),
               BlocProvider<CadastroCubit>(
                 create: (BuildContext context) => CadastroCubit(),
               ),
@@ -53,7 +51,7 @@ class MyApp extends StatelessWidget {
               ),
             ],
             // child: const ConsolidatedValuesPage(),
-            child: AdicionarAtendente2(),
+            child: AdicionarAtendente(),
             // child: const AdicionarProduto(),
             // child: const AdicionarCliente(),
             // child: const AdicionarPedido(),
@@ -61,7 +59,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-// 1 - usar o total do primeiro bloc no segundo
-// 2 - comparar por id do atendente e não por nome
-// 3 - passar apenas o identificador de atendente para a pagina de detalhamento e os demais valores pegar do bloc

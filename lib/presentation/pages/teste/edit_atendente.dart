@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get_it/get_it.dart';
 import 'package:projeto_desafio_flutter/application/cubit/cadastro_cubit/cadastro_atendente_cubit/edit_atendent/edit_atendent_cubit.dart';
-import 'package:projeto_desafio_flutter/presentation/pages/teste/adicionar_atendente.dart';
 import '../../../domain/models/atendente.dart';
+import '../../../domain/models/repository/atendentes_repository.dart';
 
 class AtendenteEdit extends StatelessWidget {
+  final EditAtendentCubit editAtendentCubit = EditAtendentCubit(GetIt.instance<AtendenteRepository>());
   final Atendente atendente;
   final GlobalKey<FormState> _formKey = GlobalKey();
   final Map<String, dynamic> _formData = {};
@@ -22,8 +24,7 @@ class AtendenteEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    EditAtendentCubit editAtendentCubit = EditAtendentCubit();
-    return BlocProvider(
+    return BlocProvider<EditAtendentCubit>(
       create: (context) => editAtendentCubit..waitingEditAtendent(atendente),
       child: BlocBuilder<EditAtendentCubit, EditAtendentState>(
         builder: (context, state) {
@@ -105,10 +106,7 @@ class AtendenteEdit extends StatelessWidget {
                             state.atendente.nome = _formData['nome'];
                             state.atendente.comissao = _formData['comissao'];
                             editAtendentCubit.setAtendent(state.atendente);
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute<void>(builder: (BuildContext context) => AdicionarAtendente2()),
-                            );
+                            Navigator.pop(context);
                           },
                           icon: const Icon(Icons.save),
                           label: const Text('Salvar'),
@@ -123,3 +121,5 @@ class AtendenteEdit extends StatelessWidget {
     );
   }
 }
+
+// lifecycle

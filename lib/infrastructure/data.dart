@@ -31,6 +31,12 @@ class Mock {
       Estoque(produto: produtos[2], quantidade: 300),
       Estoque(produto: produtos[3], quantidade: 401),
     ];
+    // atendentes = [
+    //   Atendente(comissao: 10, id: '1', nome: 'Mariana Silva'),
+    //   Atendente(comissao: 20, id: '2', nome: 'Claudia Monteiro'),
+    //   Atendente(comissao: 30, id: '3', nome: 'Marcelo Pontes'),
+    //   Atendente(comissao: 40, id: '4', nome: 'Roberto Pereira'),
+    // ];
     atendentes = [
       Atendente(comissao: 10, id: uuid.v4(), nome: 'Mariana Silva'),
       Atendente(comissao: 20, id: uuid.v4(), nome: 'Claudia Monteiro'),
