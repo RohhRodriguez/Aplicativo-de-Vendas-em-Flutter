@@ -15,18 +15,4 @@ class SuccessListAtendente extends AtendentListState {
   });
 }
 
-class WaitingEditAtendente extends AtendentListState {
-  Atendente atendente;
-  WaitingEditAtendente({
-    required this.atendente,
-  });
-}
-
-class SuccessListAtendenteAtualizada extends AtendentListState {
-  final List<Atendente> atendentList;
-  SuccessListAtendenteAtualizada({
-    required this.atendentList,
-  });
-}
-
 class ErrorAtendentList extends AtendentListState {}

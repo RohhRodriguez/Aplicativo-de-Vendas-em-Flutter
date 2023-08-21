@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:projeto_desafio_flutter/domain/provider/clientes.dart';
 import 'package:projeto_desafio_flutter/domain/provider/produtos.dart';
+import 'package:projeto_desafio_flutter/presentation/pages/consolidated_values_page.dart';
+import 'package:projeto_desafio_flutter/presentation/pages/initial_page.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/teste/adicionar_atendente.dart';
 import 'package:provider/provider.dart';
 import 'application/cubit/cadastro_cubit/cadastro_teste/cadastro_cubit.dart';
@@ -39,23 +41,24 @@ class MyApp extends StatelessWidget {
             primarySwatch: Colors.blue,
           ),
           home: MultiBlocProvider(
-            providers: [
-              BlocProvider<CadastroCubit>(
-                create: (BuildContext context) => CadastroCubit(),
-              ),
-              BlocProvider<SalesReportCubit>(
-                create: (BuildContext context) => SalesReportCubit(),
-              ),
-              BlocProvider<DeliveryReportCubit>(
-                create: (BuildContext context) => DeliveryReportCubit(),
-              ),
-            ],
-            // child: const ConsolidatedValuesPage(),
-            child: AdicionarAtendente(),
-            // child: const AdicionarProduto(),
-            // child: const AdicionarCliente(),
-            // child: const AdicionarPedido(),
-          )),
+              providers: [
+                BlocProvider<CadastroCubit>(
+                  create: (BuildContext context) => CadastroCubit(),
+                ),
+                BlocProvider<SalesReportCubit>(
+                  create: (BuildContext context) => SalesReportCubit(),
+                ),
+                BlocProvider<DeliveryReportCubit>(
+                  create: (BuildContext context) => DeliveryReportCubit(),
+                ),
+              ],
+              // child: const ConsolidatedValuesPage(),
+              child: const ConsolidatedValuesPage()
+              // child: AdicionarAtendente(),
+              // child: const AdicionarProduto(),
+              // child: const AdicionarCliente(),
+              // child: const AdicionarPedido(),
+              )),
     );
   }
 }

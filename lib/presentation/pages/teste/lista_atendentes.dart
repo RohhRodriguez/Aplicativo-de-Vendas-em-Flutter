@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/teste/edit_atendente.dart';
-
 import '../../../application/cubit/cadastro_cubit/cadastro_atendente_cubit/atendent_list/atendente_list_cubit.dart';
 
 // lifecycle
@@ -46,7 +45,7 @@ class _AtendentsListState extends State<AtendentsList> {
                         await Navigator.push(
                           context,
                           MaterialPageRoute<void>(
-                              builder: (BuildContext context) => AtendenteEdit(atendente: state.atendentList[i])),
+                              builder: (BuildContext context) => AtendenteEdit(idAtendente: state.atendentList[i].id)),
                         );
                         setState(() {});
                       },

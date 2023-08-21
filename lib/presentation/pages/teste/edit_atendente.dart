@@ -7,28 +7,31 @@ import '../../../domain/models/repository/atendentes_repository.dart';
 
 class AtendenteEdit extends StatelessWidget {
   final EditAtendentCubit editAtendentCubit = EditAtendentCubit(GetIt.instance<AtendenteRepository>());
-  final Atendente atendente;
+  final String idAtendente;
   final GlobalKey<FormState> _formKey = GlobalKey();
   final Map<String, dynamic> _formData = {};
   AtendenteEdit({
     Key? key,
-    required this.atendente,
+    required this.idAtendente,
   }) : super(key: key);
 
   void _saveForm(Atendente atendente) {
     final bool isValid = _formKey.currentState!.validate();
     if (isValid) {
       _formKey.currentState!.save();
+      atendente.nome = _formData['nome'];
+      atendente.comissao = _formData['comissao'];
+      editAtendentCubit.setAtendent(atendente);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider<EditAtendentCubit>(
-      create: (context) => editAtendentCubit..waitingEditAtendent(atendente),
+      create: (context) => editAtendentCubit..waitingEditAtendent(idAtendente),
       child: BlocBuilder<EditAtendentCubit, EditAtendentState>(
         builder: (context, state) {
-          if (state is WaitingEditAtendente3) {
+          if (state is WaitingEditAtendente) {
             return Scaffold(
                 appBar: AppBar(
                     title: const Text('Editar Atendente '), backgroundColor: const Color.fromARGB(221, 17, 17, 17)),
@@ -102,10 +105,7 @@ class AtendenteEdit extends StatelessWidget {
                       ),
                       ElevatedButton.icon(
                           onPressed: () {
-                            _saveForm(atendente);
-                            state.atendente.nome = _formData['nome'];
-                            state.atendente.comissao = _formData['comissao'];
-                            editAtendentCubit.setAtendent(state.atendente);
+                            _saveForm(state.atendente);
                             Navigator.pop(context);
                           },
                           icon: const Icon(Icons.save),

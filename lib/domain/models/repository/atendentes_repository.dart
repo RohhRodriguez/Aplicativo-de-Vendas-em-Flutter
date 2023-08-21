@@ -29,28 +29,13 @@ class AtendenteRepository implements IAtendenteRepository {
   }
 
   @override
-  int getCount() {
-    return mock.atendentes.length;
-  }
-
-  @override
-  add(Atendente atendente) {
-    mock.atendentes.add(atendente);
-  }
-
-  @override
   put(Atendente atendente) {
-    final String idAtendente = atendente.id;
-    final Atendente teste = mock.atendentes.firstWhere((element) => element.id == idAtendente);
-    if (mock.atendentes.contains(teste)) {
-      mock.atendentes.remove(teste);
+    if (mock.atendentes.contains(atendente)) {
+      mock.atendentes.remove(atendente);
       mock.atendentes.add(atendente);
     } else {
       mock.atendentes.add(atendente);
     }
-    mock.atendentes.forEach((element) {
-      print('${element.nome} - ${element.id}');
-    });
   }
 
   @override
