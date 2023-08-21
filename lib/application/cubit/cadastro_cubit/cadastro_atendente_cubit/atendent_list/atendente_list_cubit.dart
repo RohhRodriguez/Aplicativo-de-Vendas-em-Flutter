@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import '../../../../../domain/models/atendente.dart';
-import '../../../../../domain/models/repository/atendentes_repository.dart';
+import '../../../../../domain/models/repository/atendentes_repository/atendentes_repository.dart';
 part 'atendente_list_state.dart';
 
 class AtendenteListCubit extends Cubit<AtendentListState> {

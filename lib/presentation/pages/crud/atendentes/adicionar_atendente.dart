@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
 import 'package:projeto_desafio_flutter/domain/models/atendente.dart';
 import 'package:projeto_desafio_flutter/infrastructure/data.dart';
-import 'package:projeto_desafio_flutter/presentation/pages/teste/lista_atendentes.dart';
-import '../../../application/cubit/cadastro_cubit/cadastro_atendente_cubit/atendent_list/atendente_list_cubit.dart';
-import '../../../domain/models/repository/atendentes_repository.dart';
+import 'package:projeto_desafio_flutter/presentation/pages/crud/atendentes/lista_atendentes.dart';
+import '../../../../application/cubit/cadastro_cubit/cadastro_atendente_cubit/atendent_list/atendente_list_cubit.dart';
+import '../../../../domain/models/repository/atendentes_repository/atendentes_repository.dart';
 
 //valueObject
 class AdicionarAtendente extends StatelessWidget {
@@ -29,7 +29,7 @@ class AdicionarAtendente extends StatelessWidget {
         appBar:
             AppBar(title: const Text('Adicionar Atendente '), backgroundColor: const Color.fromARGB(221, 17, 17, 17)),
         body: Padding(
-          padding: const EdgeInsets.all(30),
+          padding: const EdgeInsets.all(25),
           child: Form(
             key: _formKey,
             child: Column(
@@ -79,9 +79,6 @@ class AdicionarAtendente extends StatelessWidget {
                 const SizedBox(
                   height: 10,
                 ),
-                const SizedBox(
-                  height: 10,
-                ),
                 ElevatedButton.icon(
                     onPressed: _saveForm,
                     icon: const Icon(Icons.save),
@@ -89,7 +86,7 @@ class AdicionarAtendente extends StatelessWidget {
                     style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue))),
                 Expanded(
                   child: BlocProvider<AtendenteListCubit>(
-                      create: (context) => atendenteListCubit, child: const AtendentsList()),
+                      create: (context) => atendenteListCubit..generateListAtendents(), child: const AtendentsList()),
                 )
               ],
             ),

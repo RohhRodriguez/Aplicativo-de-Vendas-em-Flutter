@@ -1,5 +1,5 @@
 import 'package:projeto_desafio_flutter/domain/models/atendente.dart';
-import '../../../infrastructure/data.dart';
+import '../../../../infrastructure/data.dart';
 import 'i_atendentes_repository.dart';
 
 class AtendenteRepository implements IAtendenteRepository {

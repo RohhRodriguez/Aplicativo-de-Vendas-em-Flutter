@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_desafio_flutter/presentation/pages/teste/adicionar_atendente.dart';
+import 'package:projeto_desafio_flutter/presentation/pages/crud/atendentes/adicionar_atendente.dart';
+import 'package:projeto_desafio_flutter/presentation/pages/crud/clientes/adicionar_cliente.dart';
 import '../../../../application/services/report_generic_service.dart';
 
 enum EItem { register, reports, newOrder, deliveryTicket }
@@ -25,7 +26,7 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
         // t = AdicionarProduto();
         break;
       case 'Cadastrar Cliente':
-        // t = AdicionarCliente();
+        t = AdicionarCliente();
         break;
       case 'Cadastrar Atendente':
         t = AdicionarAtendente();
