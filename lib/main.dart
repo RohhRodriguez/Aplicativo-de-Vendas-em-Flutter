@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
+import 'package:projeto_desafio_flutter/domain/models/repository/produtos_repository/produtos_repository.dart';
 import 'package:projeto_desafio_flutter/domain/provider/clientes.dart';
 import 'package:projeto_desafio_flutter/domain/provider/produtos.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/initial_page.dart';
@@ -15,6 +16,7 @@ import 'domain/provider/pedidos.dart';
 void main() {
   GetIt.instance.registerLazySingleton(() => AtendenteRepository());
   GetIt.instance.registerLazySingleton(() => ClienteRepository());
+  GetIt.instance.registerLazySingleton(() => ProdutoRepository());
   runApp(MyApp());
 }
 
@@ -53,11 +55,6 @@ class MyApp extends StatelessWidget {
               ),
             ],
             child: const ConsolidatedValuesPage(),
-            // child: const ConsolidatedValuesPage()
-            // child: AdicionarAtendente(),
-            // child: const AdicionarProduto(),
-            // child: AdicionarCliente(),
-            // child: const AdicionarPedido(),
           )),
     );
   }
