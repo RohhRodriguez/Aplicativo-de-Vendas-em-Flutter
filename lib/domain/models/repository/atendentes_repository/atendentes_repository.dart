@@ -6,11 +6,6 @@ class AtendenteRepository implements IAtendenteRepository {
   final Mock mock = Mock();
 
   @override
-  Atendente byIndex(int i) {
-    return sortList().elementAt(i);
-  }
-
-  @override
   Atendente byId(String idAtendente) {
     Atendente atendente = getAll().firstWhere((element) => element.id == idAtendente);
     return atendente;

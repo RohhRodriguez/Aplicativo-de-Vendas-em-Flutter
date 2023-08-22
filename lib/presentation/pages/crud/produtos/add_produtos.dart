@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import 'package:projeto_desafio_flutter/domain/models/cliente.dart';
 import 'package:projeto_desafio_flutter/infrastructure/data.dart';
-import '../../../../application/cubit/cadastro_cubit/cadastro_cliente_cubit/client_list/client_list_cubit.dart';
-import '../../../../domain/models/repository/clientes_repository/clientes_repository.dart';
-import 'lista_clientes.dart';
+import '../../../../application/cubit/cadastro_cubit/cadastro_p/product_list/produto_list_cubit.dart';
+import '../../../../domain/models/produto.dart';
+import '../../../../domain/models/repository/produtos_repository/produtos_repository.dart';
+import 'lista_products.dart';
 
 //valueObject
-class AdicionarCliente extends StatelessWidget {
-  final ClientListCubit clientListCubit = ClientListCubit(GetIt.instance<ClienteRepository>());
-  AdicionarCliente({Key? key}) : super(key: key);
+class AdicionarProduto extends StatelessWidget {
+  final ProdutoListCubit produtoListCubit = ProdutoListCubit(GetIt.instance<ProdutoRepository>());
+  AdicionarProduto({Key? key}) : super(key: key);
   final GlobalKey<FormState> _formKey = GlobalKey();
   final Map<String, dynamic> _formData = {};
 
@@ -18,14 +18,14 @@ class AdicionarCliente extends StatelessWidget {
     final bool isValid = _formKey.currentState!.validate();
     if (isValid) {
       _formKey.currentState!.save();
-      clientListCubit.addClients(Cliente(id: uuid.v4(), nome: _formData['nome'], endereco: _formData['endereco']));
+      produtoListCubit.addProduct(Produto(id: uuid.v4(), nome: _formData['nome'], valor: _formData['valor']));
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text('Adicionar Cliente '), backgroundColor: const Color.fromARGB(221, 17, 17, 17)),
+        appBar: AppBar(title: const Text('Cadastrar Produto'), backgroundColor: const Color.fromARGB(221, 17, 17, 17)),
         body: Padding(
           padding: const EdgeInsets.all(25),
           child: Form(
@@ -40,8 +40,8 @@ class AdicionarCliente extends StatelessWidget {
                     return null;
                   },
                   decoration: const InputDecoration(
-                      hintText: 'Insira o nome do Cliente',
-                      labelText: 'Nome do Cliente',
+                      hintText: 'Insira o nome do Produto',
+                      labelText: 'Nome do Produto',
                       border: OutlineInputBorder(),
                       errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 5))),
                   onSaved: (value) {
@@ -53,22 +53,26 @@ class AdicionarCliente extends StatelessWidget {
                 ),
                 TextFormField(
                   validator: (value) {
-                    if (value != null && value.trim().length < 3) {
-                      return 'Insira mais de 3 caracteres';
+                    try {
+                      var valor = double.tryParse(value!)!;
+                      if (valor < 0) {
+                        return 'Insira um valor positivo!';
+                      } else {
+                        return null;
+                      }
+                    } catch (e) {
+                      return 'Insira um número válido!';
                     }
-                    return null;
                   },
                   decoration: const InputDecoration(
-                      hintText: 'Insira o endereço do Cliente',
-                      labelText: 'Endereço do Cliente',
+                      hintText: 'Insira o valor do Produto',
+                      labelText: 'Valor do Produto',
                       border: OutlineInputBorder(),
                       errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 5))),
                   onSaved: (value) {
-                    _formData['endereco'] = value;
+                    var valor = double.parse(value!);
+                    _formData['valor'] = valor;
                   },
-                ),
-                const SizedBox(
-                  height: 10,
                 ),
                 const SizedBox(
                   height: 10,
@@ -78,13 +82,10 @@ class AdicionarCliente extends StatelessWidget {
                     icon: const Icon(Icons.save),
                     label: const Text('Salvar'),
                     style: const ButtonStyle(backgroundColor: MaterialStatePropertyAll(Colors.blue))),
-                const SizedBox(
-                  height: 10,
-                ),
                 Expanded(
-                  child: BlocProvider<ClientListCubit>(
-                      create: (context) => clientListCubit..generateListClientes(), child: const ClientsList()),
-                ),
+                  child: BlocProvider<ProdutoListCubit>(
+                      create: (context) => produtoListCubit..generateListProducts(), child: ProductsList()),
+                )
               ],
             ),
           ),

@@ -1,40 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get_it/get_it.dart';
-import '../../../../application/cubit/cadastro_cubit/cadastro_cliente_cubit/client_edit/edit_client_cubit.dart';
-import '../../../../domain/models/cliente.dart';
-import '../../../../domain/models/repository/clientes_repository/clientes_repository.dart';
+import '../../../../application/cubit/cadastro_cubit/cadastro_p/edit_product/product_edit_cubit.dart';
+import '../../../../application/cubit/cadastro_cubit/cadastro_p/edit_product/product_edit_state.dart';
+import '../../../../domain/models/produto.dart';
+import '../../../../domain/models/repository/produtos_repository/produtos_repository.dart';
 
-class ClienteEdit extends StatelessWidget {
-  final EditClientCubit editClientCubit = EditClientCubit(GetIt.instance<ClienteRepository>());
-  final String idCliente;
+class ProductEdit extends StatelessWidget {
+  final EditProductCubit editProductCubit = EditProductCubit(GetIt.instance<ProdutoRepository>());
+  final String idProduto;
   final GlobalKey<FormState> _formKey = GlobalKey();
   final Map<String, dynamic> _formData = {};
-  ClienteEdit({
+  ProductEdit({
     Key? key,
-    required this.idCliente,
+    required this.idProduto,
   }) : super(key: key);
 
-  void _saveForm(Cliente cliente) {
+  void _saveForm(Produto produto) {
     final bool isValid = _formKey.currentState!.validate();
     if (isValid) {
       _formKey.currentState!.save();
-      cliente.nome = _formData['nome'];
-      cliente.endereco = _formData['endereco'];
-      editClientCubit.setCliente(cliente);
+      produto.nome = _formData['nome'];
+      produto.valor = _formData['valor'];
+      editProductCubit.setProduct(produto);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<EditClientCubit>(
-      create: (context) => editClientCubit..waitingEditCliente(idCliente),
-      child: BlocBuilder<EditClientCubit, EditClientState>(
+    return BlocProvider<EditProductCubit>(
+      create: (context) => editProductCubit..waitingEditProduct(idProduto),
+      child: BlocBuilder<EditProductCubit, EditProductState>(
         builder: (context, state) {
-          if (state is WaitingEditClient) {
+          if (state is WaitingEditProduct) {
             return Scaffold(
-                appBar:
-                    AppBar(title: const Text('Editar Cliente'), backgroundColor: const Color.fromARGB(221, 17, 17, 17)),
+                appBar: AppBar(
+                    title: const Text('Editar Produto '), backgroundColor: const Color.fromARGB(221, 17, 17, 17)),
                 body: Padding(
                   padding: const EdgeInsets.all(30.0),
                   child: Form(
@@ -42,9 +43,9 @@ class ClienteEdit extends StatelessWidget {
                     child: Column(children: [
                       TextFormField(
                         readOnly: true,
-                        initialValue: state.cliente.id,
+                        initialValue: state.produto.id,
                         decoration: const InputDecoration(
-                          labelText: 'Id do Cliente',
+                          labelText: 'Id do Produto',
                           border: OutlineInputBorder(),
                         ),
                       ),
@@ -52,7 +53,7 @@ class ClienteEdit extends StatelessWidget {
                         height: 10,
                       ),
                       TextFormField(
-                        initialValue: state.cliente.nome,
+                        initialValue: state.produto.nome,
                         validator: (value) {
                           if (value != null && value.trim().length < 3) {
                             return 'Insira mais de 3 caracteres';
@@ -60,8 +61,8 @@ class ClienteEdit extends StatelessWidget {
                           return null;
                         },
                         decoration: const InputDecoration(
-                            hintText: 'Insira o nome do Cliente',
-                            labelText: 'Nome do Cliente',
+                            hintText: 'Insira o nome do Produto',
+                            labelText: 'Nome do Produto',
                             border: OutlineInputBorder(),
                             errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 5))),
                         onSaved: (value) {
@@ -72,20 +73,29 @@ class ClienteEdit extends StatelessWidget {
                         height: 10,
                       ),
                       TextFormField(
-                        initialValue: state.cliente.endereco,
+                        initialValue: '${state.produto.valor}',
                         validator: (value) {
-                          if (value != null && value.trim().length < 3) {
-                            return 'Insira mais de 3 caracteres';
+                          try {
+                            var valor = double.tryParse(value!)!;
+                            if (value.trim().isEmpty && valor.isNaN && valor > 100) {
+                              return 'Numero de caracteres menor do que o permitido!';
+                            } else if (valor.isNaN) {
+                              return 'Insira um valor positivo!';
+                            } else {
+                              return null;
+                            }
+                          } catch (e) {
+                            return 'Insira um número válido!';
                           }
-                          return null;
                         },
                         decoration: const InputDecoration(
-                            hintText: 'Insira o endereço do Cliente',
-                            labelText: 'Endereço do Cliente',
+                            hintText: 'Insira o valor do Produto',
+                            labelText: 'Valor do Produto',
                             border: OutlineInputBorder(),
                             errorBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.red, width: 5))),
                         onSaved: (value) {
-                          _formData['endereco'] = value;
+                          var valor = double.tryParse(value!)! + 0.00;
+                          _formData['valor'] = valor;
                         },
                       ),
                       const SizedBox(
@@ -96,7 +106,7 @@ class ClienteEdit extends StatelessWidget {
                       ),
                       ElevatedButton.icon(
                           onPressed: () {
-                            _saveForm(state.cliente);
+                            _saveForm(state.produto);
                             Navigator.pop(context);
                           },
                           icon: const Icon(Icons.save),
@@ -112,3 +122,5 @@ class ClienteEdit extends StatelessWidget {
     );
   }
 }
+
+// lifecycle

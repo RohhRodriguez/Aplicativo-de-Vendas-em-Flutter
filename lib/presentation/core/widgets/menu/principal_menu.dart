@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/crud/atendentes/adicionar_atendente.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/crud/clientes/adicionar_cliente.dart';
-import '../../../../application/services/report_generic_service.dart';
-
-enum EItem { register, reports, newOrder, deliveryTicket }
+import '../../../pages/crud/produtos/add_produtos.dart';
 
 class PrincipalMenu extends StatefulWidget {
-  final ReportGenerate reportGenerate;
   const PrincipalMenu({
     Key? key,
-    required this.reportGenerate,
   }) : super(key: key);
 
   @override
@@ -17,13 +13,11 @@ class PrincipalMenu extends StatefulWidget {
 }
 
 class _PrincipalMenuState extends State<PrincipalMenu> {
-  EItem? selectedMenu;
-
   onItemSelected(String value) {
     var t;
     switch (value) {
       case 'Cadastrar Produto':
-        // t = AdicionarProduto();
+        t = AdicionarProduto();
         break;
       case 'Cadastrar Cliente':
         t = AdicionarCliente();
@@ -38,7 +32,6 @@ class _PrincipalMenuState extends State<PrincipalMenu> {
     );
   }
 
-// onSelected
   @override
   Widget build(BuildContext context) {
     return PopupMenuButton(

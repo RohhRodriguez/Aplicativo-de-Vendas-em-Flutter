@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:projeto_desafio_flutter/application/cubit/cadastro_cubit/cadastro_cliente_cubit/client_list_cubit.dart';
 import 'package:projeto_desafio_flutter/presentation/pages/crud/clientes/edit_cliente.dart';
+import '../../../../application/cubit/cadastro_cubit/cadastro_cliente_cubit/client_list/client_list_cubit.dart';
 
 class ClientsList extends StatelessWidget {
   const ClientsList({super.key});
@@ -50,7 +50,6 @@ class ClientsList extends StatelessWidget {
                         color: Colors.blue,
                       )),
                     ),
-                    // const Spacer(flex: 1),
                     const SizedBox(width: 10),
                     InkWell(
                       onTap: () {

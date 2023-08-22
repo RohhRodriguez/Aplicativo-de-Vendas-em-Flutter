@@ -20,7 +20,7 @@ class ConsolidatedValuesPage extends StatelessWidget {
           titlePage,
           style: const TextStyle(color: Colors.black),
         ),
-        actions: [PrincipalMenu(reportGenerate: ReportGenerate.salesReport())],
+        actions: const [PrincipalMenu()],
       ),
       body: Column(children: [
         const Expanded(

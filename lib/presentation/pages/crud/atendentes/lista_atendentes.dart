@@ -105,8 +105,8 @@ class AtendentsList extends StatelessWidget {
                     Text('${state.atendentList[i].comissao}%', style: const TextStyle(fontWeight: FontWeight.bold)),
                     const Spacer(flex: 1),
                     InkWell(
-                      onTap: () async {
-                        await Navigator.push(
+                      onTap: () {
+                        Navigator.push(
                           context,
                           MaterialPageRoute<void>(
                               builder: (BuildContext context) => AtendenteEdit(idAtendente: state.atendentList[i].id)),

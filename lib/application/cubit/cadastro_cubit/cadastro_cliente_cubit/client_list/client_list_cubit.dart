@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import '../../../../domain/models/cliente.dart';
-import '../../../../domain/models/repository/clientes_repository/clientes_repository.dart';
+import '../../../../../domain/models/cliente.dart';
+import '../../../../../domain/models/repository/clientes_repository/clientes_repository.dart';
 
 part 'client_list_state.dart';
 
