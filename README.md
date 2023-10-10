@@ -1,16 +1,4 @@
 # projeto_desafio_flutter
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Projeto desenvolvido para treinamento de desenvolvimento de aplicativos mobile em Flutter enquanto atuei como estagiária na Trimble Latam. 
+O aplicativo tem como intuito fornecer relatórios a cerca das vendas, comissões, entregas, etc da empresa, bem como dar a opção de cadastrar novos clientes, produtos, atendentes e pedidos. Além de controlar as unidades no estoque e possibilitar retirada de relatórios.
+Foram trabalhados conceitos de lógica de programação, bem como estrutura e arquitetura de software, com foco em Flutter. Abordados os conceitos de gerenciamento de estados, utilização de blocs, cubits, criação e manipulação de CRUDS, etc.
